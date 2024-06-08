@@ -1,0 +1,53 @@
+ef check_balance(balance):
+  """Prints the current account balance."""
+  print(f"Your current balance is: ${balance:.2f}")
+
+def withdraw_cash(balance, amount):
+  """Attempts to withdraw cash, checking for sufficient funds."""
+  if amount > balance:
+    print("Insufficient funds. Please try a lower amount.")
+  else:
+    balance -= amount
+    print(f"Withdrawal successful. Please take your cash. New balance: rupees{balance:.2f}")
+  return balance
+
+def deposit_cash(balance, amount):
+  """Deposits cash and updates the account balance."""
+  balance += amount
+  print(f"Deposit successful. New balance:rupees {balance:.2f}")
+  return balance
+
+def main():
+  """Simulates the ATM user interface and calls functions based on user choices."""
+  account_balance = 1000  # Initial account balance (replace with database interaction for real ATM)
+  pin = 2504  # Predefined pin (replace with user input and verification for real ATM)
+
+  while True:
+    print("\nWelcome to the ATM!")
+    entered_pin = int(input("Enter your PIN: "))
+
+    if entered_pin == pin:
+      print("\n1. Check Balance")
+      print("2. Withdraw Cash")
+      print("3. Deposit Cash")
+      print("4. Exit")
+      choice = int(input("Enter your choice: "))
+
+      if choice == 1:
+        check_balance(account_balance)
+      elif choice == 2:
+        withdrawal_amount = float(input("Enter amount to withdraw: "))
+        account_balance = withdraw_cash(account_balance, withdrawal_amount)
+      elif choice == 3:
+        deposit_amount = float(input("Enter amount to deposit: "))
+        account_balance = deposit_cash(account_balance, deposit_amount)
+      elif choice == 4:
+        print("Thank you for using the ATM. Have a nice day!")
+        break
+      else:
+        print("Invalid choice. Please try again.")
+    else:
+      print("Incorrect PIN. Please try again.")
+
+if __name__ == "__main__":
+  main()
